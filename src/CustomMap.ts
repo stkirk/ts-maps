@@ -4,11 +4,12 @@
 export class CustomMap {
   // type our google map
   private googleMap: google.maps.Map;
-  constructor() {
+  // use param divId to pass in the element we want the map to reference dynamically
+  constructor(divId: string) {
     //optional argument signified by opts? in hovering over .Map class
     // go to docs with cmd click and find we can pass in an object that looks like MapOptions interface which is defined in the google maps type definition file
     this.googleMap = new google.maps.Map(
-      document.getElementById("map") as HTMLElement,
+      document.getElementById(divId) as HTMLElement,
       {
         zoom: 1,
         center: {
