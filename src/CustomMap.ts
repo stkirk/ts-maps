@@ -3,12 +3,13 @@ import { Company } from "./Company"; // not needed with interface usage for addM
 // can do two things with a class in TS, create a new instance of that class or use it to annotate a type of object
 
 // Define an interface on how an object can be an argument to the addMarker method on our CustomMap class --> puts the onus on User, Company, Park, CarLot etc to conform to this structure
-interface Mappable {
+export interface Mappable {
   location: {
     lat: number;
     lng: number;
   };
   markerContent(): string;
+  color: string;
 }
 
 // Restrict what can be done to the google Map class object so that other developers don't call unvetted methods that would break our application

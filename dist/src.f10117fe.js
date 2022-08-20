@@ -136892,6 +136892,7 @@ var User =
 /** @class */
 function () {
   function User() {
+    this.color = "red";
     this.name = faker_1.default.name.firstName();
     this.location = {
       // from the faker definition file, we know lattitude and longitude methods return a string, we want a number so we must use JS to convert to a float
@@ -136928,6 +136929,7 @@ var Company =
 /** @class */
 function () {
   function Company() {
+    this.color = "purple";
     this.companyName = faker_1.default.company.companyName();
     this.catchPhrase = faker_1.default.company.catchPhrase();
     this.location = {

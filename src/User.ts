@@ -3,9 +3,13 @@
 // npm i @types/faker
 import faker from "faker";
 
+//import interface and annotate User class to implement it
+// this points us in the right direction upon errors and makes sure User will get through the Mappable gate
+import { Mappable } from "./CustomMap";
+
 // User class instances leverage faker to initialize with random class props, i.e. random name, lat and long
 // TS convention to use named exports and not default
-export class User {
+export class User implements Mappable {
   name: string;
   // this tells TS that we have a location property, it will be an object with lat,lng props BUT it is NOT initialized yet
   // THERE IS NO OBJECT YET and initialization must happen in the constructor
@@ -13,6 +17,7 @@ export class User {
     lat: number;
     lng: number;
   };
+  color: string = "red";
 
   constructor() {
     this.name = faker.name.firstName();
