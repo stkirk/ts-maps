@@ -117,22 +117,46 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/index.ts":[function(require,module,exports) {
+})({"src/CustomMap.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
-}); //optional argument signified by opts? in hovering over .Map class
-// go to docs with cmd click and find we can pass in an object that looks like MapOptions interface which is defined in the google maps type definition file
-
-new google.maps.Map(document.getElementById("map"), {
-  zoom: 1,
-  center: {
-    lat: 0,
-    lng: 0
-  }
 });
-},{}],"../../../../../opt/homebrew/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+exports.CustomMap = void 0; // Restrict what can be done to the google Map class object so that other developers don't call unvetted methods that would break our application
+// By that we mean create a custom map class, exposing only bare bones methods and props that we intend for the application to use
+// Hide the existence of the google map from other devs by marking the custom class as private
+
+var CustomMap =
+/** @class */
+function () {
+  function CustomMap() {
+    //optional argument signified by opts? in hovering over .Map class
+    // go to docs with cmd click and find we can pass in an object that looks like MapOptions interface which is defined in the google maps type definition file
+    this.googleMap = new google.maps.Map(document.getElementById("map"), {
+      zoom: 1,
+      center: {
+        lat: 0,
+        lng: 0
+      }
+    });
+  }
+
+  return CustomMap;
+}();
+
+exports.CustomMap = CustomMap;
+},{}],"src/index.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var CustomMap_1 = require("./CustomMap");
+
+new CustomMap_1.CustomMap();
+},{"./CustomMap":"src/CustomMap.ts"}],"../../../../../opt/homebrew/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
