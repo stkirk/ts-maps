@@ -18,6 +18,7 @@ export interface Mappable {
 export class CustomMap {
   // type our google map
   private googleMap: google.maps.Map;
+
   // use param divId to pass in the element we want the map to reference dynamically
   constructor(divId: string) {
     //optional argument signified by opts? in hovering over .Map class
@@ -64,12 +65,11 @@ export class CustomMap {
         lng: mappable.location.lng,
       },
     });
+    //onClick create the infoWindow
+    const infoWindow = new google.maps.InfoWindow({
+      content: mappable.markerContent(),
+    });
     marker.addListener("click", () => {
-      //onClick create the infoWindow
-      const infoWindow = new google.maps.InfoWindow({
-        content: mappable.markerContent(),
-      });
-      // once it is created, open it
       infoWindow.open(this.googleMap, marker);
     });
   }

@@ -137004,13 +137004,12 @@ function () {
         lat: mappable.location.lat,
         lng: mappable.location.lng
       }
+    }); //onClick create the infoWindow
+
+    var infoWindow = new google.maps.InfoWindow({
+      content: mappable.markerContent()
     });
     marker.addListener("click", function () {
-      //onClick create the infoWindow
-      var infoWindow = new google.maps.InfoWindow({
-        content: mappable.markerContent()
-      }); // once it is created, open it
-
       infoWindow.open(_this.googleMap, marker);
     });
   };
