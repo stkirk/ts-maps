@@ -8,6 +8,7 @@ interface Mappable {
     lat: number;
     lng: number;
   };
+  markerContent(): string;
 }
 
 // Restrict what can be done to the google Map class object so that other developers don't call unvetted methods that would break our application
@@ -55,12 +56,20 @@ export class CustomMap {
 
   // Single method that accepts a 'mappable' object that is gatekept by our interface to make sure it has all the properties we need to addMarker
   addMarker(mappable: Mappable): void {
-    new google.maps.Marker({
+    const marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
         lat: mappable.location.lat,
         lng: mappable.location.lng,
       },
+    });
+    marker.addListener("click", () => {
+      //onClick create the infoWindow
+      const infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent(),
+      });
+      // once it is created, open it
+      infoWindow.open(this.googleMap, marker);
     });
   }
 }

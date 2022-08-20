@@ -136900,6 +136900,10 @@ function () {
     };
   }
 
+  User.prototype.markerContent = function () {
+    return "\n    <div>\n        <h1>User Name: ".concat(this.name, "</h1>\n    </div>\n    ");
+  };
+
   return User;
 }();
 
@@ -136931,6 +136935,10 @@ function () {
       lng: parseFloat(faker_1.default.address.longitude())
     };
   }
+
+  Company.prototype.markerContent = function () {
+    return "\n    <div>\n        <h1>Company Name: ".concat(this.companyName, "</h1>\n        <h3>Company Motto: ").concat(this.catchPhrase, "</h3>\n    </div>\n    ");
+  };
 
   return Company;
 }();
@@ -136986,12 +136994,22 @@ function () {
 
 
   CustomMap.prototype.addMarker = function (mappable) {
-    new google.maps.Marker({
+    var _this = this;
+
+    var marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
         lat: mappable.location.lat,
         lng: mappable.location.lng
       }
+    });
+    marker.addListener("click", function () {
+      //onClick create the infoWindow
+      var infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent()
+      }); // once it is created, open it
+
+      infoWindow.open(_this.googleMap, marker);
     });
   };
 
